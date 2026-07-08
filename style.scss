@@ -1,0 +1,1043 @@
+// ==========================================================================
+// 1. ТОЧНА ПАЛЕТА НА БОИ ОД СЛИКАТА (WEBGRAD BLUE/DARK THEME)
+// ==========================================================================
+$bg-main: #080b11;         
+$bg-card: #0e131f;         
+$accent-blue: #2f5eef;     
+$text-bright: #ffffff;     
+$text-muted: #6f798c;      
+$grid-lines: rgba(47, 94, 239, 0.025); // Нежна сина мрежа
+$card-border: rgba(47, 94, 239, 0.1);
+
+$font-sans: 'Inter', sans-serif;
+$transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); // Мазна SaaS транзиција
+
+// АНИМАЦИСКИ СИСТЕМ (POP-UP НА СКРОЛ)
+@keyframes fadePopup {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-popup {
+  animation: fadePopup 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+// ==========================================================================
+// 2. ГЛОБАЛНИ СТИЛОВИ И ЗГОЛЕМЕНА МРЕЖА (GRID)
+// ==========================================================================
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: $bg-main;
+  color: $text-bright;
+  font-family: $font-sans;
+  line-height: 1.5;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body {
+  // ЗГОЛЕМЕНИ КВАДРАТЧИЊА ОД 44px НА 80px ЗА ПОМОДЕРЕН И ПРОСТОРЕН ИЗГЛЕД
+  background-image: 
+    linear-gradient($grid-lines 1px, transparent 1px),
+    linear-gradient(90deg, $grid-lines 1px, transparent 1px);
+  background-size: 80px 80px; 
+  background-position: center top;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -150px;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba($accent-blue, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 300px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba($accent-blue, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 10;
+}
+
+// ==========================================================================
+// 3. ТИПОГРАФИЈА, КОПЧИЊА И ЕДНОБОЈНИ МОДЕРНИ ИКОНИ
+// ==========================================================================
+.section-tagline {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: $text-muted;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 16px;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background-color: $accent-blue;
+    margin-right: 8px;
+  }
+}
+
+.section-title {
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  color: $text-muted;
+  font-size: 15px;
+  max-width: 580px;
+  margin-bottom: 56px;
+  line-height: 1.6;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: $transition;
+  border: none;
+  cursor: pointer;
+
+  &.btn-primary {
+    background-color: $accent-blue;
+    color: #ffffff;
+    box-shadow: 0 4px 25px rgba($accent-blue, 0.3);
+    &:hover {
+      background-color: lighten($accent-blue, 5%);
+      box-shadow: 0 6px 30px rgba($accent-blue, 0.45);
+      transform: translateY(-2px);
+    }
+  }
+
+  &.btn-secondary {
+    background-color: transparent;
+    color: $text-bright;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// НОВИОТ СИСТЕМ ЗА ЕДНОБОЈНИ ИКОНИ (EMPTY FILL + ИЗРАЗЕН БОРДЕР)
+.modern-icon-wrapper, .icon-box, .quote-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: transparent !important; // Празно внатре
+  border: 2px solid $accent-blue;            // Изразен дебел силен бордер
+  box-shadow: 0 0 12px rgba($accent-blue, 0.15);
+  margin-bottom: 20px;
+  transition: $transition;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke: $accent-blue !important;         // Чиста неон сина боја
+    stroke-width: 2.2px;                     // Зајакнати линии
+    fill: none !important;                   // Празно (без шаренила)
+    display: block;
+  }
+}
+
+// ==========================================================================
+// 4. СЕКЦИИ ОД ПОЧЕТНАТА СТРАНИЦА (INDEX.HTML)
+// ==========================================================================
+
+// HEADER
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba($bg-main, 0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 16px 0;
+
+  .container { display: flex; align-items: center; justify-content: space-between; }
+  .logo {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: $text-bright;
+    .logo-accent { color: $accent-blue; }
+  }
+  .main-nav {
+    display: flex;
+    gap: 32px;
+    a {
+      color: $text-muted;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: $transition;
+      &:hover, &.active { color: $text-bright; }
+    }
+  }
+}
+
+// HERO
+.hero-section {
+  padding: 220px 0 100px 0;
+  .hero-title {
+    font-size: 74px;
+    font-weight: 700;
+    letter-spacing: -3px;
+    line-height: 1.1;
+    max-width: 850px;
+    margin-bottom: 24px;
+    .text-gradient { color: $accent-blue; }
+  }
+  .hero-text { font-size: 18px; color: $text-muted; max-width: 560px; margin-bottom: 40px; line-height: 1.6; }
+  .hero-buttons { display: flex; gap: 16px; margin-bottom: 56px; }
+  .hero-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13.5px;
+    color: $text-muted;
+    .avatar-group {
+      display: flex;
+      .avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid $bg-main;
+        margin-left: -10px;
+        background-color: #161e30;
+        &:first-child { margin-left: 0; }
+        &:last-child { background-color: $accent-blue; }
+      }
+    }
+  }
+}
+
+// TICKER & STATS
+.ticker-stats-section {
+  padding: 40px 0 80px 0;
+  .marquee-group { display: flex; flex-direction: column; gap: 16px; margin-bottom: 80px; overflow: hidden; }
+  .ticker-wrapper {
+    display: flex; user-select: none; overflow: hidden; white-space: nowrap;
+    &.dir-left .ticker-inner { animation: marquee-l 25s linear infinite; }
+    &.dir-right .ticker-inner { animation: marquee-r 25s linear infinite; }
+  }
+  .ticker-inner {
+    display: inline-block; font-size: 42px; font-weight: 700; letter-spacing: -1px; color: rgba(255, 255, 255, 0.04);
+    span { display: inline-block; padding-right: 40px; }
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 60px; text-align: center;
+    .stat-item {
+      h3 { font-size: 44px; font-weight: 700; color: $text-bright; margin-bottom: 4px; }
+      p { font-size: 13.5px; color: $text-muted; }
+    }
+  }
+}
+@keyframes marquee-l { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+@keyframes marquee-r { 0% { transform: translate3d(-50%, 0, 0); } 100% { transform: translate3d(0, 0, 0); } }
+
+// USLUGE
+.services-section {
+  padding: 80px 0;
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .service-card {
+    background-color: $bg-card; border: 1px solid $card-border; border-radius: 16px; padding: 36px; display: flex; flex-direction: column; min-height: 280px; transition: $transition;
+    &:hover { 
+      transform: translateY(-5px); 
+      border-color: rgba($accent-blue, 0.35); 
+      box-shadow: 0 12px 30px rgba($accent-blue, 0.05);
+      .icon-box { border-color: #fff; svg { stroke: #fff !important; } }
+    }
+    h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+    p { font-size: 14px; color: $text-muted; line-height: 1.6; margin-bottom: 24px; }
+    .card-link { color: $accent-blue; text-decoration: none; font-size: 13px; font-weight: 600; margin-top: auto; }
+  }
+}
+
+// INDUSTRIJE (ЕФЕКТ СО ПОМИНУВАЊЕ НА БОЈАТА И СЈАЈ ПРИ ХОВЕР)
+.industries-section {
+  padding: 80px 0;
+  .industries-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .industry-item {
+    background-color: $bg-card; border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 24px; height: 130px; display: flex; flex-direction: column; justify-content: space-between; transition: $transition;
+    span { font-size: 12px; color: $text-muted; transition: $transition; }
+    h4 { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.9); transition: $transition; }
+    
+    &:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: $accent-blue;
+      box-shadow: 0 8px 25px rgba($accent-blue, 0.15);
+      background-color: lighten($bg-card, 1.5%);
+      
+      span { color: $accent-blue; font-weight: 600; }
+      h4 { color: #fff; }
+    }
+  }
+}
+
+// GRADOVI
+.cities-section {
+  padding: 80px 0;
+  .cities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .city-card {
+    position: relative; background-color: #0c121e; border: 1px solid $card-border; border-radius: 20px; padding: 40px 36px; min-height: 290px; overflow: hidden; display: flex; flex-direction: column; transition: $transition;
+    .glow-effect { position: absolute; top: -40px; left: -40px; width: 180px; height: 180px; border-radius: 50%; filter: blur(60px); opacity: 0.15; z-index: 1; transition: $transition; }
+    &.city-zagreb .glow-effect { background: radial-gradient(circle, #b9925e 0%, transparent 80%); }
+    &.city-split .glow-effect { background: radial-gradient(circle, #39839c 0%, transparent 80%); }
+    &.city-rijeka .glow-effect { background: radial-gradient(circle, #399c75 0%, transparent 80%); }
+    &.city-osijek .glow-effect { background: radial-gradient(circle, #939c39 0%, transparent 80%); }
+    &.city-zadar .glow-effect { background: radial-gradient(circle, #3d399c 0%, transparent 80%); }
+    &.city-pula .glow-effect { background: radial-gradient(circle, #9c396c 0%, transparent 80%); }
+    &:hover { transform: translateY(-4px); border-color: rgba($accent-blue, 0.4); .glow-effect { opacity: 0.3; transform: scale(1.2); } }
+    .card-content { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; flex-grow: 1; }
+    .meta-tag { font-size: 10px; color: $text-muted; font-weight: 600; letter-spacing: 0.5px; }
+    h3 { font-size: 32px; font-weight: 700; margin: 4px 0 16px 0; }
+    p { font-size: 14.5px; color: $text-muted; line-height: 1.5; margin-bottom: 24px; }
+    .city-link { color: $accent-blue; text-decoration: none; font-size: 13px; font-weight: 600; margin-top: auto; }
+  }
+}
+
+// PORTFOLIO
+.portfolio-section {
+  padding: 80px 0;
+  .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+}
+.portfolio-card-link {
+  text-decoration: none; color: inherit; display: block; transition: $transition;
+  &:hover {
+    transform: translateY(-5px);
+    .portfolio-card { border-color: rgba($accent-blue, 0.4); }
+    .view-more { color: $accent-blue; }
+  }
+}
+.portfolio-card {
+  background-color: $bg-card; border: 1px solid $card-border; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: $transition;
+  .portfolio-visual {
+    height: 340px; display: flex; align-items: center; justify-content: center; text-align: center;
+    h2 { font-size: 40px; font-weight: 700; color: #fff; line-height: 1.1; }
+    &.block-adria { background-color: #12181f; }
+    &.block-mare { background-color: #c05c33; }
+    &.block-vala { background-color: #3b5a34; }
+    &.block-marina { background-color: #245296; }
+    &.block-litora { background-color: #796136; }
+    &.block-lumen { background-color: #934c6b; }
+  }
+  .portfolio-meta {
+    padding: 28px 32px; background-color: #090e18; border-top: 1px solid rgba(255, 255, 255, 0.02);
+    .tag { font-size: 10px; color: $accent-blue; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 6px; }
+    h3 { font-size: 19px; font-weight: 600; margin-bottom: 4px; }
+    p { font-size: 14px; color: $text-muted; }
+  }
+}
+.view-more { display: block; font-size: 13px; color: $text-muted; margin-top: 12px; transition: $transition; }
+
+// PROCES
+.process-section {
+  padding: 80px 0;
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .process-card {
+    background-color: $bg-card; border: 1px solid $card-border; border-radius: 16px; padding: 32px;
+    span { font-size: 12px; color: $accent-blue; font-weight: 700; display: block; margin-bottom: 16px; }
+    h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+    p { font-size: 14px; color: $text-muted; line-height: 1.6; }
+  }
+}
+
+// ZAŠTO MI (УСОГЛАСЕН ХОВЕР ЕФЕКТ СО МОДЕРНИТЕ ИКОНИ)
+.why-us-section {
+  padding: 80px 0;
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .why-card {
+    background-color: $bg-card; border: 1px solid $card-border; border-radius: 16px; padding: 32px; transition: $transition;
+    h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+    p { font-size: 14px; color: $text-muted; line-height: 1.6; }
+    
+    &:hover {
+      transform: translateY(-4px);
+      border-color: rgba($accent-blue, 0.3);
+      .modern-icon-wrapper {
+        border-color: #fff;
+        box-shadow: 0 0 20px rgba($accent-blue, 0.35);
+        svg { stroke: #fff !important; }
+      }
+    }
+  }
+}
+
+// RECENZIJE / REFERENCES
+.references-section {
+  padding: 80px 0;
+  .references-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .ref-card {
+    background-color: $bg-card; border: 1px solid $card-border; border-radius: 16px; padding: 40px 32px; display: flex; flex-direction: column; transition: $transition;
+    &:hover { 
+      transform: translateY(-4px); 
+      border-color: rgba($accent-blue, 0.3); 
+      .quote-icon { border-color: #fff; svg { stroke: #fff !important; } }
+    }
+    .quote-icon { margin-bottom: 24px; }
+    p { font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.6; margin-bottom: 32px; flex-grow: 1; }
+  }
+  .ref-user {
+    display: flex; align-items: center; gap: 12px;
+    .user-avatar {
+      width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 1px solid rgba($accent-blue, 0.3);
+      img { width: 100%; height: 100%; object-fit: cover; }
+    }
+    h4 { font-size: 15px; font-weight: 600; }
+    span { font-size: 12px; color: $text-muted; }
+  }
+}
+
+// KONTAKT
+.contact-section {
+  padding: 100px 0;
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; }
+  .info-list { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
+  .info-item {
+    display: flex; align-items: center; gap: 16px;
+    .modern-icon-wrapper { margin-bottom: 0; flex-shrink: 0; } // Порамнување во ред во контакт секцијата
+    span { display: block; font-size: 12px; color: $text-muted; }
+    strong { font-size: 15px; font-weight: 600; color: #fff; }
+  }
+  .contact-form-container {
+    background-color: $bg-card; border: 1px solid $card-border; border-radius: 24px; padding: 48px;
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .form-group {
+      display: flex; flex-direction: column; gap: 8px;
+      label { font-size: 13px; color: $text-muted; font-weight: 500; }
+      input, select, textarea { background-color: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); padding: 14px; border-radius: 10px; color: #fff; font-family: $font-sans; font-size: 14px; width: 100%; &:focus { outline: none; border-color: $accent-blue; } }
+    }
+    .form-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; span { font-size: 13px; color: $text-muted; } }
+  }
+}
+
+// FOOTER
+.site-footer {
+  padding: 80px 0 40px 0; border-top: 1px solid rgba(255,255,255,0.04); background-color: #04060b;
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+  .footer-brand { h4 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 16px; .logo-accent { color: $accent-blue; } } p { font-size: 14px; color: $text-muted; max-width: 320px; line-height: 1.6; } }
+  .footer-links { h4 { font-size: 12px; color: #fff; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.5px; } a { color: $text-muted; text-decoration: none; font-size: 14px; display: block; margin-bottom: 12px; &:hover { color: #fff; } } }
+  .footer-bottom { display: flex; justify-content: space-between; font-size: 13px; color: $text-muted; border-top: 1px solid rgba(255,255,255,0.02); padding-top: 30px; }
+}
+
+// ==========================================================================
+// 5. ДИЗАЈН ЗА ПОДСТРАНИЦАТА ЗА ПРОЕКТИ (PROJEKT-DETALJI.HTML)
+// ==========================================================================
+.project-hero {
+  padding: 180px 0 60px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
+  .back-link { color: $accent-blue; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-block; margin-bottom: 24px; }
+  .project-tag { font-size: 11px; letter-spacing: 2px; color: $text-muted; display: block; margin-bottom: 8px; }
+  .project-main-title { font-size: 56px; font-weight: 700; letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px; }
+  .project-lead-text { font-size: 18px; color: $text-muted; max-width: 650px; }
+}
+
+.project-info-section {
+  padding: 80px 0;
+  .project-info-grid { display: grid; grid-template-columns: 1.8fr 1fr; gap: 64px; }
+  .info-content-side { h2 { font-size: 28px; margin-bottom: 20px; font-weight: 700; } p { color: $text-muted; font-size: 16px; line-height: 1.7; margin-bottom: 24px; } }
+  .project-requirements-list {
+    list-style: none; display: flex; flex-direction: column; gap: 12px;
+    li { position: relative; padding-left: 24px; color: rgba(255,255,255,0.85); font-size: 15px; &::before { content: '✓'; position: absolute; left: 0; color: $accent-blue; font-weight: 700; } }
+  }
+  .info-meta-side {
+    background-color: $bg-card; border: 1px solid $card-border; border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 24px; height: fit-content;
+    .meta-box { span { font-size: 11px; color: $text-muted; display: block; margin-bottom: 4px; letter-spacing: 0.5px; } strong { font-size: 15px; color: #fff; font-weight: 600; } }
+  }
+}
+
+.project-gallery-section {
+  padding: 60px 0 120px 0;
+  .project-images-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 48px; }
+  .project-img-wrapper {
+    background-color: $bg-card; border: 1px solid $card-border; padding: 10px; border-radius: 14px; transition: $transition;
+    &:hover { transform: translateY(-3px); border-color: rgba($accent-blue, 0.3); }
+    img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; display: block; }
+    .img-caption { display: block; font-size: 12px; color: $text-muted; margin-top: 10px; padding-left: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  }
+}
+
+
+
+// СТИЛ ЗА БУРГЕР КОПЧЕ (Скриено на Десктоп нативно)
+.burger-btn {
+  display: none; // Не се гледа на десктоп компјутери
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  padding: 0;
+  z-index: 1001; // Мора да биде над мобилното мени
+  position: relative;
+
+  .line {
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff; // Бели линии
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: left center;
+  }
+}
+
+// ТРАНСФОРМАЦИЈА ВО "X" КОГА Е АКТИВНО МЕНИТО
+body.nav-active {
+  overflow: hidden; // Спречува скролање на позадината додека менито е отворено
+
+  .burger-btn {
+    .line:nth-child(1) {
+      transform: rotate(45deg);
+      background-color: #2f5eef; // Менува боја во нашата сина при отворање
+    }
+    .line:nth-child(2) {
+      width: 0%;
+      opacity: 0;
+    }
+    .line:nth-child(3) {
+      transform: rotate(-45deg);
+      background-color: #2f5eef;
+    }
+  }
+}
+
+
+// ==========================================================================
+// 🔥 ЦЕЛОСЕН МЕДИА КВЕРИ ЗА МОБИЛНИ УРЕДИ (max-width: 768px) - ОД HEADER ДО FOOTER
+// ==========================================================================
+@media (max-width: 768px) {
+  
+  // 0. ГЛОБАЛНИ СТИЛОВИ ЗА МОБИЛЕН
+  html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+  }
+
+  .container {
+    padding: 0 24px; 
+  }
+
+  .section-title {
+    font-size: 32px !important; 
+    letter-spacing: -1px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .section-subtitle {
+    font-size: 14px !important;
+    margin-bottom: 40px !important;
+    line-height: 1.5;
+  }
+
+
+  // 1. SITE HEADER & БУРГЕР МЕНИ
+  .site-header {
+    padding: 20px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; 
+      width: 100%;
+    }
+
+    .btn, .btn-primary, .header-actions {
+      display: none !important; 
+    }
+
+    .burger-btn {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 30px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1002; 
+      transition: all 0.3s ease;
+
+      .line {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #ffffff; 
+        border-radius: 2px;
+        transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+      }
+    }
+
+    .main-nav {
+      display: flex !important; 
+      flex-direction: column;
+      align-items: flex-start; 
+      justify-content: flex-start;
+      gap: 0 !important;
+      
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0c1017 !important; 
+      padding: 140px 40px 40px 40px; 
+      
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(100%); 
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      z-index: 1001; 
+
+      a {
+        width: 100%;
+        font-size: 20px !important; 
+        font-weight: 600;
+        color: #ffffff !important;
+        padding: 20px 0;
+        text-align: left;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07); 
+        transition: all 0.3s ease;
+
+        &.active {
+          color: #ffffff !important;
+          border-bottom: 2px solid #2f5eef !important; 
+          padding-bottom: 19px; 
+        }
+      }
+
+      &::after {
+        content: "Zatraži ponudu";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 80px); 
+        position: absolute;
+        bottom: 40px;
+        left: 40px;
+        background-color: #2f5eef;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 16px;
+        border-radius: 50px; 
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(47, 94, 239, 0.3);
+        text-align: center;
+      }
+    }
+  }
+
+  body.nav-active {
+    overflow: hidden !important;
+
+    .site-header {
+      .burger-btn {
+        width: 42px !important;
+        height: 42px !important;
+        border: 2px solid #2f5eef !important; 
+        border-radius: 8px;
+        justify-content: center; 
+        position: relative;
+        padding: 0;
+
+        .line {
+          position: absolute;
+          width: 20px; 
+          background-color: #ffffff !important;
+        }
+
+        .line:nth-child(1) { transform: rotate(45deg); }
+        .line:nth-child(2) { opacity: 0; width: 0; }
+        .line:nth-child(3) { transform: rotate(-45deg); }
+      }
+
+      .main-nav {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: translateX(0) !important;
+      }
+    }
+  }
+
+
+  // 2. 🔥 HERO СЕКЦИЈА (КОПЧИЊА ЕДНО ПОД ДРУГО + GAP ДО КЛИЕНТИТЕ)
+  .hero-section {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    display: flex !important;
+    align-items: center !important; 
+    justify-content: center !important;
+    padding: 100px 0 40px 0 !important;
+    text-align: left !important;
+
+    .container {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important; 
+      justify-content: center !important;
+      width: 100% !important;
+    }
+
+    // Над-наслов (Web dizajn agencija...)
+    .hero-top-badge, .hero-tagline {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      gap: 12px !important;
+      margin-bottom: 24px !important;
+      font-size: 12px !important;
+      letter-spacing: 1px;
+      
+      &::before {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 1px;
+        background-color: currentColor;
+        opacity: 0.5;
+      }
+    }
+
+    // Големиот моќен наслов кој се крши точно
+    .hero-title {
+      font-size: 4.2rem !important; 
+      font-weight: 800 !important; 
+      letter-spacing: -1.5px !important; 
+      line-height: 1.1 !important; 
+      text-align: left !important; 
+      margin: 0 0 24px 0 !important; 
+      width: 100% !important;
+      max-width: 340px !important; 
+    }
+
+    .hero-text {
+      font-size: 15px !important;
+      text-align: left !important;
+      margin: 0 0 36px 0 !important;
+      line-height: 1.5 !important;
+      width: 100% !important;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    // ВРАТЕНИ ЕДНО ПОД ДРУГО (ВЕРТИКАЛНО)
+    .hero-buttons {
+      display: flex !important;
+      flex-direction: column !important; 
+      align-items: center!important; 
+      gap: 14px !important;
+      width: 100% !important;
+      margin: 0 !important; 
+
+      .btn, a, button {
+        display: flex !important;
+        width: 100% !important; 
+        max-width: 290px !important; 
+        justify-content: center !important; 
+        align-items: center !important;
+        padding: 15px 24px !important; 
+        font-size: 14px !important;
+        text-align: center !important;
+        border-radius: 30px !important; 
+        box-sizing: border-box !important;
+      }
+    }
+
+    // ДЕЛОТ СО КЛИЕНТИТЕ (Сместен под второто копче со одличен Gap)
+    .hero-badge, .hero-clients, .clients-proof {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      margin-top: 32px !important; // Овде е клучниот gap што го побара
+      width: 100% !important;
+      
+      .avatar-group, .avatars {
+        display: flex !important;
+        align-items: center !important;
+      }
+    }
+  }
+
+
+  // 3. TICKER & STATS
+  .ticker-stats-section {
+    padding: 40px 0 !important;
+
+    .ticker-inner {
+      font-size: 28px !important; 
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr) !important; 
+      gap: 32px 16px !important;
+      padding-top: 40px !important;
+
+      .stat-item h3 {
+        font-size: 32px !important;
+      }
+    }
+  }
+
+
+  // 4. USLUGE / SERVICES
+  .services-section {
+    padding: 40px 0 !important;
+    .services-grid {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    .service-card {
+      padding: 24px !important;
+      min-height: auto !important; 
+    }
+  }
+
+
+  // 5. INDUSTRIJE
+  .industries-section {
+    padding: 40px 0 !important;
+    .industries-grid {
+      grid-template-columns: repeat(2, 1fr) !important; 
+      gap: 12px !important;
+    }
+    .industry-item {
+      padding: 16px !important;
+      height: 110px !important;
+      h4 {
+        font-size: 13.5px !important;
+      }
+    }
+  }
+
+
+  // 6. GRADOVI
+  .cities-section {
+    padding: 40px 0 !important;
+    .cities-grid {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    .city-card {
+      padding: 32px 24px !important;
+      min-height: auto !important;
+      h3 {
+        font-size: 26px !important;
+      }
+      .glow-effect {
+        display: none !important; 
+      }
+    }
+  }
+
+
+  // 7. PORTFOLIO
+  .portfolio-section {
+    padding: 40px 0 !important;
+    .portfolio-grid {
+      grid-template-columns: 1fr !important;
+      gap: 24px !important;
+    }
+    .portfolio-card .portfolio-visual {
+      height: 240px !important; 
+      h2 { font-size: 28px !important; }
+    }
+    .portfolio-card .portfolio-meta {
+      padding: 20px 24px !important;
+    }
+  }
+
+
+  // 8. PROCES & ZAŠTO MI
+  .process-section, .why-us-section {
+    padding: 40px 0 !important;
+    .process-grid, .why-grid {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    .process-card, .why-card {
+      padding: 24px !important;
+    }
+  }
+
+
+  // 9. RECENZIJE
+  .references-section {
+    padding: 40px 0 !important;
+    .references-grid {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    .ref-card {
+      padding: 28px 20px !important;
+      p {
+        font-size: 14px !important;
+        margin-bottom: 24px !important;
+      }
+    }
+  }
+
+
+  // 10. KONTAKT & ФОРМА
+  .contact-section {
+    padding: 50px 0 !important;
+    
+    .contact-layout {
+      grid-template-columns: 1fr !important;
+      gap: 40px !important;
+    }
+
+    .info-list {
+      margin-top: 24px !important;
+      gap: 16px !important;
+    }
+
+    .contact-form-container {
+      padding: 24px 20px !important;
+      border-radius: 16px !important;
+
+      .form-row {
+        grid-template-columns: 1fr !important; 
+        gap: 16px !important;
+        margin-bottom: 16px !important;
+      }
+
+      .form-group input, 
+      .form-group select, 
+      .form-group textarea {
+        padding: 12px !important;
+        font-size: 14px !important; 
+      }
+
+      .form-footer {
+        flex-direction: column-reverse; 
+        gap: 16px;
+        align-items: stretch !important; 
+        text-align: center;
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+
+  // 11. SITE FOOTER
+  .site-footer {
+    padding: 60px 0 30px 0 !important;
+    
+    .footer-top {
+      grid-template-columns: 1fr !important; 
+      gap: 32px !important;
+      margin-bottom: 40px !important;
+    }
+
+    .footer-links {
+      h4 { margin-bottom: 12px !important; }
+      a { margin-bottom: 8px !important; font-size: 13.5px !important; }
+    }
+
+    .footer-bottom {
+      flex-direction: column !important;
+      align-items: center;
+      text-align: center;
+      gap: 12px !important;
+      padding-top: 24px !important;
+    }
+  }
+
+
+  // 12. ПРОЕКТИ ПОДСТРАНИЦА
+  .project-hero {
+    padding: 130px 0 40px 0 !important;
+    .project-main-title { font-size: 34px !important; }
+    .project-lead-text { font-size: 15px !important; }
+  }
+
+  .project-info-section {
+    padding: 40px 0 !important;
+    .project-info-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  }
+
+  .project-gallery-section {
+    padding: 20px 0 60px 0 !important;
+    
+    .project-images-grid {
+      display: flex !important; 
+      overflow-x: auto !important; 
+      scroll-snap-type: x mandatory !important; 
+      gap: 12px !important; 
+      padding-bottom: 15px !important;
+      margin-top: 24px !important;
+      
+      &::-webkit-scrollbar { height: 4px; }
+      &::-webkit-scrollbar-thumb { background-color: rgba(47, 94, 239, 0.3); border-radius: 10px; }
+    }
+
+    .project-img-wrapper {
+      flex: 0 0 80% !important; 
+      scroll-snap-align: start !important;
+      img { height: 160px !important; }
+    }
+  }
+}
