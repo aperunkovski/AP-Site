@@ -1052,11 +1052,12 @@ body.nav-active .burger-btn .line:nth-child(3) {
     line-height: 1.5;
   }
   .site-header {
-    padding: 20px 0;
+    padding: 16px 0;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    height: 70px;
     z-index: 1000;
   }
   .site-header .container {
@@ -1177,12 +1178,13 @@ body.nav-active .burger-btn .line:nth-child(3) {
     transform: translateX(0) !important;
   }
   .hero-section {
-    height: 100dvh !important;
-    min-height: 100dvh !important;
+    height: calc(100dvh - 70px) !important;
+    min-height: calc(100dvh - 70px) !important;
+    margin-top: 70px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 100px 0 40px 0 !important;
+    padding: 20px 0 40px 0 !important;
     text-align: left !important;
   }
   .hero-section .container {
@@ -1197,7 +1199,7 @@ body.nav-active .burger-btn .line:nth-child(3) {
     align-items: center !important;
     justify-content: flex-start !important;
     gap: 12px !important;
-    margin-bottom: 24px !important;
+    margin-bottom: 20px !important;
     font-size: 12px !important;
     letter-spacing: 1px;
   }
@@ -1215,14 +1217,14 @@ body.nav-active .burger-btn .line:nth-child(3) {
     letter-spacing: -1.5px !important;
     line-height: 1.1 !important;
     text-align: left !important;
-    margin: 0 0 24px 0 !important;
+    margin: 0 0 20px 0 !important;
     width: 100% !important;
     max-width: 340px !important;
   }
   .hero-section .hero-text {
     font-size: 15px !important;
     text-align: left !important;
-    margin: 0 0 36px 0 !important;
+    margin: 0 0 32px 0 !important;
     line-height: 1.5 !important;
     width: 100% !important;
     color: rgba(255, 255, 255, 0.7);
@@ -1230,7 +1232,7 @@ body.nav-active .burger-btn .line:nth-child(3) {
   .hero-section .hero-buttons {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     gap: 14px !important;
     width: 100% !important;
     margin: 0 !important;
