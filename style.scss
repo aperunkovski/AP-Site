@@ -587,13 +587,14 @@ body.nav-active {
 
   // 1. SITE HEADER & БУРГЕР МЕНИ
   .site-header {
-    padding: 16px 0; // Малку потесен за да земе помалку простор на мобилен
+    padding: 16px 0;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 70px; // 🔥 Фиксна висина за да може Hero точно да ја пресмета празнината
+    height: 70px; 
     z-index: 1000;
+    background-color: #0c1017; 
 
     .container {
       display: flex;
@@ -724,17 +725,15 @@ body.nav-active {
   }
 
 
-  // 2. 🔥 HERO СЕКЦИЈА - ЧИСТО ОДВОЕНА ОД НАВИГАЦИЈАТА И ПАКУВАНА ВО 100dvh
+  // 2. 🔥 HERO СЕКЦИЈА - БЕЗ 100DVH (РЕШЕН ПРОБЛЕМ ЗА ОДВОЈУВАЊЕ)
   .hero-section {
-    // Кратиме 70px од висината на екранот за да не влегува под навигацијата
-    height: calc(100dvh - 70px) !important;
-    min-height: calc(100dvh - 70px) !important;
-    margin-top: 70px !important; // Ја туркаме секцијата точно под фиксниот хедер
-    
+    height: auto !important;       // Тргнато 100dvh за да не бега содржината долу
+    min-height: auto !important;   // Оставаме содржината сама да си направи висина
+    padding-top: 110px !important; // Ова прави перфектно и сигурно одвојување од навигацијата горе
+    padding-bottom: 60px !important;
     display: flex !important;
     align-items: center !important; 
     justify-content: center !important;
-    padding: 20px 0 40px 0 !important; // Помал padding бидејќи сега се одвоени чисто
     text-align: left !important;
 
     .container {
@@ -745,7 +744,6 @@ body.nav-active {
       width: 100% !important;
     }
 
-    // Над-наслов (Web dizajn agencija...)
     .hero-top-badge, .hero-tagline {
       display: flex !important;
       align-items: center !important;
@@ -765,7 +763,6 @@ body.nav-active {
       }
     }
 
-    // Големиот наслов
     .hero-title {
       font-size: 4.2rem !important; 
       font-weight: 800 !important; 
@@ -786,7 +783,7 @@ body.nav-active {
       color: rgba(255, 255, 255, 0.7);
     }
 
-    // Копчиња едно под друго
+    // Копчиња строго едно под друго
     .hero-buttons {
       display: flex !important;
       flex-direction: column !important; 
@@ -809,12 +806,12 @@ body.nav-active {
       }
     }
 
-    // Делот со клиентите под второто копче со Gap
+    // Делот со аватари на дното со убав gap
     .hero-badge, .hero-clients, .clients-proof {
       display: flex !important;
       align-items: center !important;
       justify-content: flex-start !important;
-      margin-top: 32px !important; 
+      margin-top: 36px !important; 
       width: 100% !important;
       
       .avatar-group, .avatars {

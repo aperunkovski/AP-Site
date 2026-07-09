@@ -1059,6 +1059,7 @@ body.nav-active .burger-btn .line:nth-child(3) {
     width: 100%;
     height: 70px;
     z-index: 1000;
+    background-color: #0c1017;
   }
   .site-header .container {
     display: flex;
@@ -1178,13 +1179,13 @@ body.nav-active .burger-btn .line:nth-child(3) {
     transform: translateX(0) !important;
   }
   .hero-section {
-    height: calc(100dvh - 70px) !important;
-    min-height: calc(100dvh - 70px) !important;
-    margin-top: 70px !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding-top: 110px !important;
+    padding-bottom: 60px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 20px 0 40px 0 !important;
     text-align: left !important;
   }
   .hero-section .container {
@@ -1253,7 +1254,7 @@ body.nav-active .burger-btn .line:nth-child(3) {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    margin-top: 32px !important;
+    margin-top: 36px !important;
     width: 100% !important;
   }
   .hero-section .hero-badge .avatar-group, .hero-section .hero-badge .avatars, .hero-section .hero-clients .avatar-group, .hero-section .hero-clients .avatars, .hero-section .clients-proof .avatar-group, .hero-section .clients-proof .avatars {
